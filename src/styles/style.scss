@@ -19,3 +19,8 @@ body {
   width: 100vw;
   color: $sec;
 }
+
+canvas {
+  padding: 30px;
+  border: 1px $sec solid;
+}
