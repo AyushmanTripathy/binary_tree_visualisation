@@ -8,6 +8,14 @@
     <title>Document</title>
   </head>
   <body>
+    <section id="board">
+      <label>Number to find</label>
+      <input type="number" value="10" onchange="start()" />
+      <label>size of Tree</label>
+      <input type="range" onchange="random()" value="10" min="1" max="20" />
+      <input type="button" value="Restart" onclick="start()" />
+      <input type="button" value="New Tree" onclick="random()" />
+    </section>
     <canvas height="700" width="700"></canvas>
     <script src="./src/scripts/script.js"></script>
   </body>

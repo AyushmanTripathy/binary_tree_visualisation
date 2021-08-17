@@ -1,5 +1,6 @@
 $sec: #bbb;
 $bg: #202124;
+$hl: #0482e9;
 
 @import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@100;300&display=swap");
 
@@ -20,7 +21,58 @@ body {
   color: $sec;
 }
 
+#board {
+  display: flex;
+  flex-direction: column;
+}
+
+input {
+  margin: 10px;
+
+  background-color: $bg;
+  color: $sec;
+
+  padding: 10px;
+
+  border: 1px $sec solid;
+  border-radius: 8px;
+}
+
 canvas {
+  height: 90vh;
+  width: 90vh;
   padding: 30px;
   border: 1px $sec solid;
+}
+
+input[type="range"] {
+  -webkit-appearance: none;
+  width: 50%;
+  height: 1px;
+  background: $bg;
+  outline: none;
+  border: 1px solid $sec;
+  border-radius: 8px;
+}
+
+/* for chrome/safari */
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 40px;
+  width: 10px;
+  background: $bg;
+  cursor: pointer;
+  border: 1px solid $sec;
+  border-radius: 4px;
+}
+
+/* for firefox */
+input[type="range"]::-moz-range-thumb {
+  height: 5px;
+  width: 5px;
+  background: $bg;
+  cursor: pointer;
+  border: 5px solid $sec;
+  border-radius: 4px;
 }

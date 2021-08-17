@@ -16,8 +16,61 @@ body {
   color: #bbb;
 }
 
+#board {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+input {
+  margin: 10px;
+  background-color: #202124;
+  color: #bbb;
+  padding: 10px;
+  border: 1px #bbb solid;
+  border-radius: 8px;
+}
+
 canvas {
+  height: 90vh;
+  width: 90vh;
   padding: 30px;
   border: 1px #bbb solid;
+}
+
+input[type="range"] {
+  -webkit-appearance: none;
+  width: 50%;
+  height: 1px;
+  background: #202124;
+  outline: none;
+  border: 1px solid #bbb;
+  border-radius: 8px;
+}
+
+/* for chrome/safari */
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 40px;
+  width: 10px;
+  background: #202124;
+  cursor: pointer;
+  border: 1px solid #bbb;
+  border-radius: 4px;
+}
+
+/* for firefox */
+input[type="range"]::-moz-range-thumb {
+  height: 5px;
+  width: 5px;
+  background: #202124;
+  cursor: pointer;
+  border: 5px solid #bbb;
+  border-radius: 4px;
 }
 /*# sourceMappingURL=style.css.map */

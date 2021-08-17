@@ -4,6 +4,7 @@ const ctx = canvas.getContext("2d");
 let tree;
 const gap = 80;
 const radius = 20;
+const frameRate = 200;
 
 function Tree() {
   this.root = null;
@@ -68,27 +69,8 @@ function Node(val, x, y) {
 
   this.draw = (parent = null) => {
     if (this.left) this.left.draw(this);
-    console.log(this.value);
 
-    //circle
-    ctx.fillStyle = "#202124";
-    ctx.beginPath();
-    ctx.ellipse(
-      this.pos.x + radius / 2,
-      this.pos.y - radius / 2,
-      radius,
-      radius,
-      0,
-      0,
-      360
-    );
-    ctx.fill();
-    ctx.stroke();
-    ctx.closePath();
-
-    //text
-    ctx.fillStyle = "#bbb";
-    ctx.fillText(this.value, this.pos.x + 5, this.pos.y - 2);
+    drawNode(this, "#bbb", "#202124", "#bbb");
 
     if (this.right) this.right.draw(this);
   };
@@ -107,14 +89,46 @@ function Node(val, x, y) {
     if (this.right) this.right.line(this);
   };
 
-  this.search = (val) => {
-    if (this.value == val) return this.level;
+  this.search = async (val) => {
+    //highlight
+    drawNode(this, "#0482e9", "#0482e9", "#202124");
+
+    console.log("frame");
+    await sleep(frameRate);
+
+    if (this.value == val) console.log(this.level);
     else if (this.value > val && this.right != null)
       return this.right.search(val);
     else if (this.value < val && this.left != null)
       return this.left.search(val);
-    else return false;
+    else console.log("not found");
   };
+}
+
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+function drawNode(node, border, fill, text) {
+  ctx.strokeStyle = border;
+  ctx.fillStyle = fill;
+  ctx.beginPath();
+  ctx.ellipse(
+    node.pos.x + radius / 2,
+    node.pos.y - radius / 2,
+    radius,
+    radius,
+    0,
+    0,
+    360
+  );
+  ctx.fill();
+  ctx.stroke();
+  ctx.closePath();
+
+  //text
+  ctx.fillStyle = text;
+  ctx.fillText(node.value, node.pos.x + 5, node.pos.y - 2);
 }
 
 function dist(level) {
@@ -127,15 +141,33 @@ init();
 function init() {
   tree = new Tree();
 
-  for (let i = 0; i < 6; i++) {
-    tree.addValue(Math.floor(Math.random() * 10));
-    //tree.addValue(i);
-  }
-  tree.addValue(2);
+  random(10);
+  tree.draw();
+  tree.search(size);
+}
+
+function start() {
+  const goal = document.querySelector('input[type="number"]').value;
+
+  //reset
+  ctx.fillStyle = "#202124";
+  ctx.fillRect(0, 0, canvas.height, canvas.width);
 
   tree.draw();
+  tree.search(goal);
+}
 
-  console.log(tree.search(2));
+function random() {
+  const size = document.querySelector('input[type="range"]').value;
 
-  console.log(tree);
+  tree = new Tree();
+
+  //reset
+  ctx.fillStyle = "#202124";
+  ctx.fillRect(0, 0, canvas.height, canvas.width);
+
+  for (let i = 0; i < size; i++) {
+    tree.addValue(Math.floor(Math.random() * size + 1));
+  }
+  tree.draw();
 }
